@@ -1,0 +1,21 @@
+{
+    "name": "zaeder/link4mailing-bundle",
+    "type": "symfony-bundle",
+    "description": "Symfony bundle : links for mailing",    
+    "homepage": "http://zaeder.github.io/",    
+    "authors": [
+        {
+            "name": "Florian THIERRY",
+            "email": "zaeder@live.fr"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.3",
+        "symfony/framework-bundle": "~2.4"
+    },    
+    "autoload": {
+        "psr-0": { "Zaeder\\Link4MailingBundle": "" }
+    },
+    "target-dir": "Zaeder/Link4MailingBundle"
+}
