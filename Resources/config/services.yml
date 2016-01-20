@@ -1,0 +1,5 @@
+services:
+    link4mailing_urlhelper:
+        class: Zaeder\Link4MailingBundle\Service\UrlHelper
+        arguments:
+            container: "@service_container"
