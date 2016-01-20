@@ -2,7 +2,8 @@
     "name": "zaeder/link4mailing-bundle",
     "type": "symfony-bundle",
     "description": "Symfony bundle : links for mailing",    
-    "homepage": "http://zaeder.github.io/",    
+    "homepage": "http://zaeder.github.io/",
+    "license" : "GPL-3.0+",
     "authors": [
         {
             "name": "Florian THIERRY",
