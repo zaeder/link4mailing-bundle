@@ -4,7 +4,11 @@ namespace Zaeder\Link4MailingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
-abstract class Link4Mailing
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="links4mailing")
+ */
+class Link4Mailing
 {
     /**
      * @ORM\Id
