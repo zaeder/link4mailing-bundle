@@ -20,8 +20,8 @@ class ZaederLink4mailingExtension extends Extension
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
 
-        foreach (array('user_class','firewall_name') as $attribute) {
-            $container->setParameter('zaederlink4mailingbundle.'.$attribute, $config[$attribute]);
-        }
+        $userEntity = '\\' . $config['user_class']; 
+        $container->setParameter('zaederlink4mailingbundle.user_class', $userEntity);
+        $container->setParameter('zaederlink4mailingbundle.firewall_name', $config['firewall_name']);
     }
 }

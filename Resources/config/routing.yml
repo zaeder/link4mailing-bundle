@@ -1,5 +1,5 @@
-Link4mailing:
-    resource: "@ZaederLink4mailingBundle/Controller/Link4mailingController.php"
-    type:     annotation
+zaeder.link4mailing:
+    pattern:   /Link4mailing/{linkId}/{securKey}
+    defaults:  { _controller: ZaederLink4mailingBundle:Link4mailing:Link4mailing }
     requirements:
-        path: .+
+      linkId: \d+
