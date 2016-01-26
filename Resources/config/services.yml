@@ -3,3 +3,4 @@ services:
         class: Zaeder\Link4mailingBundle\Service\UrlHelper
         arguments:
             container: "@service_container"
+            entity_manager: "@doctrine.orm.entity_manager"
