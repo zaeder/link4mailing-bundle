@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaeder\Link4MailingBundle\Entity;
+namespace Zaeder\Link4mailingBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="links4mailing")
  */
-class Link4Mailing
+class Link4mailing
 {
     /**
      * @ORM\Id
@@ -74,7 +74,7 @@ class Link4Mailing
      *
      * @param string $routeName
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setRouteName($routeName)
     {
@@ -98,7 +98,7 @@ class Link4Mailing
      *
      * @param string $routeParams
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setRouteParams($routeParams)
     {
@@ -122,7 +122,7 @@ class Link4Mailing
      *
      * @param string $token
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setToken($token)
     {
@@ -146,7 +146,7 @@ class Link4Mailing
      *
      * @param integer $userId
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setUserId($userId)
     {
@@ -170,7 +170,7 @@ class Link4Mailing
      *
      * @param \DateTime $expirationDate
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setExpirationDate($expirationDate)
     {
@@ -194,7 +194,7 @@ class Link4Mailing
      *
      * @param boolean $isActive
      *
-     * @return Link4Mailing
+     * @return Link4mailing
      */
     public function setIsActive($isActive)
     {

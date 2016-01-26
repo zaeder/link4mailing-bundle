@@ -1,5 +1,5 @@
-link4mailing:
-    resource: "@ZaederLink4MailingBundle/Controller/Link4MailingController.php"
+Link4mailing:
+    resource: "@ZaederLink4mailingBundle/Controller/Link4mailingController.php"
     type:     annotation
     requirements:
         path: .+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaeder\Link4MailingBundle\Service;
+namespace Zaeder\Link4mailingBundle\Service;
 
 class UrlHelper {
     

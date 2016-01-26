@@ -1,13 +1,13 @@
 <?php
 
-namespace Zaeder\Link4MailingBundle\DependencyInjection;
+namespace Zaeder\Link4mailingBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
-class ZaederLink4MailingExtension extends Extension
+class ZaederLink4mailingExtension extends Extension
 {
     /**
      * {@inheritDoc}

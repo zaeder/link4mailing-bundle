@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaeder\Link4MailingBundle\DependencyInjection;
+namespace Zaeder\Link4mailingBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

@@ -1,5 +1,5 @@
 {
-    "name": "zaeder/link4mailing-bundle",
+    "name": "zaeder/Link4mailing-bundle",
     "type": "symfony-bundle",
     "description": "Symfony bundle : links for mailing",    
     "homepage": "http://zaeder.github.io/",
@@ -17,7 +17,7 @@
         "doctrine/doctrine-bundle": "~1.2"
     },    
     "autoload": {
-        "psr-0": { "Zaeder\\Link4MailingBundle": "" }
+        "psr-0": { "Zaeder\\Link4mailingBundle": "" }
     },
-    "target-dir": "Zaeder/Link4MailingBundle"
+    "target-dir": "Zaeder/Link4mailingBundle"
 }
