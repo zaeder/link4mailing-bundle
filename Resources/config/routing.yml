@@ -1,5 +1,3 @@
 zaeder.link4mailing:
     pattern:   /Link4mailing/{linkId}/{securKey}
     defaults:  { _controller: ZaederLink4mailingBundle:Link4mailing:Link4mailing }
-    requirements:
-      linkId: \d+
