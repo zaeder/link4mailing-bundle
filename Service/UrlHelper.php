@@ -5,6 +5,8 @@ namespace Zaeder\Link4mailingBundle\Service;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Zaeder\Link4mailingBundle\Entity\Link4mailing;
+use Teknoo\Curl\RequestGenerator;
+use Teknoo\Curl\ErrorException as TeknooCurlException;
 
 class UrlHelper {
     
@@ -44,18 +46,27 @@ class UrlHelper {
     
     /**
      * Generate link
-     * @param string $routeName
+     * @param string $routeNameOrUri
      * @param mixed $routeParams
+     * @param boolean $isExternalLink
      * @param int $userId
      * @param int $duration
      */
-    public function generateLink($routeName, $routeParams = array(), $userId = 0, $duration = 0)
+    public function generateLink($routeNameOrUri, $routeParams = array(), $isExternalLink = false, $userId = 0, $duration = 0)
     {
         $link4mailing = new Link4mailing();
-        if(is_array($routeParams)){
-            $this->container->get('router')->generate($routeName, $routeParams);
+        if($isExternalLink === true){
+            if($this->checkExternalLink($routeNameOrUri)){
+                $routeParams = array();
+            } else {
+                throw new \Exception('This link "' . $routeNameOrUri . '" is not valid');
+            }
         } else {
-            throw new \LogicException('$routeName must be an array');
+            if(is_array($routeParams)){
+                $this->container->get('router')->generate($routeNameOrUri, $routeParams);
+            } else {
+                throw new \LogicException('$routeName must be an array');
+            }
         }
         if(!is_int($userId)) {
             throw new \LogicException('$userId must be an integer');
@@ -69,16 +80,17 @@ class UrlHelper {
             $link4mailing->setExpirationDate($expirationDate);
         }
         $token = md5(substr(str_shuffle('0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!:;,§/.?*ùµ%|_-#=()'), 0, 30));
-        $link4mailing->setRouteName($routeName)
+        $link4mailing->setRouteNameOrUri($routeNameOrUri)
                      ->setRouteParams(json_encode($routeParams))
                      ->setToken($token)
                      ->setUserId($userId)
+                     ->setIsExternalLink($isExternalLink)
                      ->setIsActive(1);
         $this->em->persist($link4mailing);
         $this->em->flush();
         return $this->container->get('router')->generate('zaeder.link4mailing', array(
             'linkId' => $link4mailing->getId(),
-            'securKey' => md5($routeName . $token . json_encode($routeParams))
+            'securKey' => md5($routeNameOrUri . $token . json_encode($routeParams))
         ));
     }
     
@@ -91,17 +103,36 @@ class UrlHelper {
             if(!is_null($expirationDate) && $expirationDate < $date){
                 throw new \Exception('This link has expired');
             }
-            if($securKey === md5($link4mailing->getRouteName() . $link4mailing->getToken() . $link4mailing->getRouteParams())){
+            if($securKey === md5($link4mailing->getRouteNameOrUri() . $link4mailing->getToken() . $link4mailing->getRouteParams())){
                 if($link4mailing->getUserId() !== 0){
                     $this->autologin($link4mailing->getUserId());
                 }
-                return $this->container->get('router')->generate($link4mailing->getRouteName(), json_decode($link4mailing->getRouteParams()));
+                if($link4mailing->getIsExternalLink()){
+                    return $link4mailing->getRouteNameOrUri();
+                } else {
+                    return $this->container->get('router')->generate($link4mailing->getRouteNameOrUri(), json_decode($link4mailing->getRouteParams()));
+                }
             } else {
                 throw new \Exception('This link is not valid');
             }
         } else {
             throw new \Exception('Not found link');
         }
+    }
+    
+    private function checkExternalLink($url)
+    {
+        $valid = true;
+        $generator = new RequestGenerator();
+        $request = $generator->getRequest();
+        $request->setUrl($url)
+                ->setMethod('GET');
+        try {
+            $request->execute();
+        } catch (TeknooCurlException $e) {
+            $valid = false;
+        }
+        return $valid;
     }
     
     private function autologin($userId)

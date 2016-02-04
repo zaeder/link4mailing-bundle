@@ -14,7 +14,8 @@
     "require": {
         "php": ">=5.4.3",
         "symfony/framework-bundle": "~2.3",
-        "doctrine/doctrine-bundle": "~1.2"
+        "doctrine/doctrine-bundle": "~1.2",
+        "teknoo/curl-request": ">=1.0.2 <2.0"
     },    
     "autoload": {
         "psr-0": { "Zaeder\\Link4mailingBundle": "" }

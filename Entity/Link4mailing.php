@@ -18,11 +18,11 @@ class Link4mailing
     protected $id;
     
     /**
-     * @var string $routeName
+     * @var string $routeNameOrUri
      *
-     * @ORM\Column(name="route_name", type="string", nullable=false)
+     * @ORM\Column(name="route_name_or_uri", type="string", nullable=false)
      */
-    protected $routeName;
+    protected $routeNameOrUri;
     
     /**
      * @var string $routeParams
@@ -53,9 +53,16 @@ class Link4mailing
     private $expirationDate;
     
     /**
+     * @var boolean $isExternalLink
+     *
+     * @ORM\Column(name="is_external_link", type="boolean", nullable=true, options={"default":0})
+     */
+    private $isExternalLink;
+    
+    /**
      * @var boolean $isActive
      *
-     * @ORM\Column(name="isActive", type="boolean", nullable=true, options={"default":0})
+     * @ORM\Column(name="is_active", type="boolean", nullable=true, options={"default":0})
      */
     private $isActive;
 
@@ -70,27 +77,27 @@ class Link4mailing
     }
 
     /**
-     * Set routeName
+     * Set routeNameOrUri
      *
-     * @param string $routeName
+     * @param string $routeNameOrUri
      *
      * @return Link4mailing
      */
-    public function setRouteName($routeName)
+    public function setRouteNameOrUri($routeNameOrUri)
     {
-        $this->routeName = $routeName;
+        $this->routeNameOrUri = $routeNameOrUri;
 
         return $this;
     }
 
     /**
-     * Get routeName
+     * Get routeNameOrUri
      *
      * @return string
      */
-    public function getRouteName()
+    public function getRouteNameOrUri()
     {
-        return $this->routeName;
+        return $this->routeNameOrUri;
     }
 
     /**
