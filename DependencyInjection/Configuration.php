@@ -15,7 +15,6 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->scalarNode('user_class')->isRequired()->cannotBeEmpty()->end()
-                ->scalarNode('firewall_name')->isRequired()->cannotBeEmpty()->end()
             ->end()
         ;
 

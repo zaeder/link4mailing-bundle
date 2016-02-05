@@ -4,3 +4,10 @@ services:
         arguments:
             container: "@service_container"
             entity_manager: "@doctrine.orm.entity_manager"
+            autologin: "@Link4mailing_autologin"
+            
+    Link4mailing_autologin:
+        class: Zaeder\Link4mailingBundle\Service\Autologin
+        arguments:
+            container: "@service_container"
+            entity_manager: "@doctrine.orm.entity_manager"

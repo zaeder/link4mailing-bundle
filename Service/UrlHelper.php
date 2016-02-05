@@ -5,6 +5,7 @@ namespace Zaeder\Link4mailingBundle\Service;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\EntityManager;
 use Zaeder\Link4mailingBundle\Entity\Link4mailing;
+use Zaeder\Link4mailingBundle\Service\Autologin;
 use Teknoo\Curl\RequestGenerator;
 use Teknoo\Curl\ErrorException as TeknooCurlException;
 
@@ -21,6 +22,11 @@ class UrlHelper {
      */
     private $em;
     /**
+     * Autologin
+     * @var Zaeder\Link4mailingBundle\Service\Autologin
+     */
+    private $autologin;
+    /**
      * User repository
      * @var object
      */
@@ -35,11 +41,13 @@ class UrlHelper {
      * Init vars
      * @param ContainerInterface $container
      * @param EntityManager $entity_manager
+     * @param Autologin $autologin
      */
-    function __construct(ContainerInterface $container, EntityManager $entity_manager)
+    function __construct(ContainerInterface $container, EntityManager $entity_manager, Autologin $autologin)
     {
         $this->container = $container;
         $this->em = $entity_manager;
+        $this->autologin = $autologin;
         $this->userRepository = $this->em->getRepository($this->container->getParameter('zaederlink4mailingbundle.user_class'));
         $this->link4mailingRepository = $this->em->getRepository('ZaederLink4mailingBundle:Link4mailing');
     }
@@ -104,14 +112,15 @@ class UrlHelper {
                 throw new \Exception('This link has expired');
             }
             if($securKey === md5($link4mailing->getRouteNameOrUri() . $link4mailing->getToken() . $link4mailing->getRouteParams())){
-                if($link4mailing->getUserId() !== 0){
-                    $this->autologin($link4mailing->getUserId());
-                }
                 if($link4mailing->getIsExternalLink()){
-                    return $link4mailing->getRouteNameOrUri();
+                    $url = $link4mailing->getRouteNameOrUri();
                 } else {
-                    return $this->container->get('router')->generate($link4mailing->getRouteNameOrUri(), json_decode($link4mailing->getRouteParams()));
+                    $url = $this->container->get('router')->generate($link4mailing->getRouteNameOrUri(), json_decode($link4mailing->getRouteParams()));
                 }
+                if($link4mailing->getUserId() !== 0){
+                    $this->autologin->autologin($url, $link4mailing->getUserId());
+                }
+                return $url;
             } else {
                 throw new \Exception('This link is not valid');
             }
@@ -133,10 +142,5 @@ class UrlHelper {
             $valid = false;
         }
         return $valid;
-    }
-    
-    private function autologin($userId)
-    {
-        $user = $this->userRepository->find($userId);
     }
 }

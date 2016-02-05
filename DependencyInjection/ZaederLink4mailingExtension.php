@@ -22,6 +22,5 @@ class ZaederLink4mailingExtension extends Extension
 
         $userEntity = $config['user_class']; 
         $container->setParameter('zaederlink4mailingbundle.user_class', $userEntity);
-        $container->setParameter('zaederlink4mailingbundle.firewall_name', $config['firewall_name']);
     }
 }
