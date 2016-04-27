@@ -1,92 +1,80 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-dark.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Link4mailing-bundle by zaeder</title>
-  </head>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv="X-UA-Compatible" content="chrome=1">
+        <title>Link4mailing-bundle by zaeder</title>
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,300,500,700&subset=latin,latin-ext" rel="stylesheet" type="text/css" />
+        <link href="css/styles.css" rel="stylesheet" type="text/css" />
+    </head>
 
-  <body>
-    <div id="container">
-      <div class="inner">
-
+    <body>
         <header>
-          <h1>Link4mailing-bundle</h1>
-          <h2>Generate links for mailing with auto-login or not, with expiration date or not, etc...</h2>
+            <div class="container">
+                <h1><span>Link4mailing-bundle</span></h1>
+                <h2>Generate links for mailing with auto-login or not, with expiration date or not, etc...</h2>
+                <div class="clear"></div>
+            </div>
         </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/zaeder/link4mailing-bundle/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/zaeder/link4mailing-bundle/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/zaeder/link4mailing-bundle" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <h3>
-<a id="welcome-to-github-pages" class="anchor" href="#welcome-to-link4mailing-bundle-pages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Welcome to Link4mailing-bundle page.</h3>
-
-<p>This symfony2 bundle generate links for your mails. You will be able to add an expiration date and link an user to use the auto-login method. This last one works with FOSUserBundle.</p>
-
-<h3>
-<a id="designer-templates" class="anchor" href="#how-to-install" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to install</h3>
-
-<p>You can download the github version.<br />
-Or using composer : <code>composer require zaeder/link4mailing-bundle</code></p>
-
-<h3>
-<a id="creating-pages-manually" class="anchor" href="#how-to-configure" aria-hidden="true"><span class="octicon octicon-link"></span></a>How to configure</h3>
-
-<p>1 - Add bundle to app/AppKernel.php</p>
-<p><code>&lt;?php<br /><br />
-use Symfony\Component\HttpKernel\Kernel;<br />
-use Symfony\Component\Config\Loader\LoaderInterface;<br /><br />
-class AppKernel extends Kernel<br />
-{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;public function registerBundles()<br />
-&nbsp;&nbsp;&nbsp;&nbsp;{<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$bundles = array(<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...],<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new Zaeder\Link4mailingBundle\ZaederLink4mailingBundle(),<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br /><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...]<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $bundles;<br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...]<br />
-}</code></p>
-<p>2 - Add your user entity class to app/config/config.yml</p>
-<p><code>zaeder_link4mailing:<br />
-&nbsp;&nbsp;&nbsp;&nbsp;user_class: MyBundle\Entity\User</code></p>
-
-<h3>
-<a id="authors-and-contributors" class="anchor" href="#generate-a-link" aria-hidden="true"><span class="octicon octicon-link"></span></a>Generate a link</h3>
-
-<p>Call to the service method :<br />
-<code>$this->container->get('Link4mailing_urlhelper')->generateLink(...)</code></p>
-<p>Method's arguments :<br />
-<code>$routeNameOrUri</code> : Set the route name ou the url (mandatory)<br />
-<code>$routeParams</code> : Set the array of params for the route name (optional)<br />
-<code>$isExternalLink</code> : Set true value to set an external link (optional)<br />
-<code>$userId</code> : Set an user id to make an auto-login link (optional)<br />
-<code>$duration</code> : Put an integer value to set how may hours the link is valid (optional)</p>
-        </section>
-
+        <div id="infos">
+            <div class="container">
+                <section id="downloads">
+                    <a href="https://github.com/zaeder/link4mailing-bundle/zipball/master" id="download-zip" class="button-grey"><span>Download .zip</span></a>
+                    <a href="https://github.com/zaeder/link4mailing-bundle/tarball/master" id="download-tar-gz" class="button-grey"><span>Download .tar.gz</span></a>
+                    <a href="https://github.com/zaeder/link4mailing-bundle" id="view-on-github" class="button-orange"><span>View on GitHub</span></a>
+                    <p><span class="title-parag">Welcome to <span class="one-word">Link4mailing-bundle</span> page.</span>This symfony2 bundle generate links for your mails. You will be able to add an expiration date and link an user to use the auto-login method. This last one works with FOSUserBundle.</p>
+                </section>
+                <section id="main_content">
+                    <p>
+                        <span class="title-parag"><a id="designer-templates" class="anchor" href="#how-to-install" aria-hidden="true"></a>How to install</span>
+                        You can download the github version.<br />
+                        Or using composer : <code>composer require zaeder/link4mailing-bundle</code>
+                    </p>
+                    <p>
+                        <span class="title-parag"><a id="creating-pages-manually" class="anchor" href="#how-to-configure" aria-hidden="true"></a>How to configure</span>
+                        1 - Add bundle to app/AppKernel.php
+                        <code class="multilines">&lt;?php<br /><br />
+                            use Symfony\Component\HttpKernel\Kernel;<br />
+                            use Symfony\Component\Config\Loader\LoaderInterface;<br /><br />
+                            class AppKernel extends Kernel<br />
+                            {<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;public function registerBundles()<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;{<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$bundles = array(<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...],<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;new Zaeder\Link4mailingBundle\ZaederLink4mailingBundle(),<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br /><br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...]<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return $bundles;<br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br /><br />
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[...]<br />
+                        }</code>
+                        2 - Add your user entity class to app/config/config.yml
+                        <code class="multilines">zaeder_link4mailing:<br />
+                        &nbsp;&nbsp;&nbsp;&nbsp;user_class: MyBundle\Entity\User</code>
+                    </p>
+                    <p>
+                        <span class="title-parag"><a id="authors-and-contributors" class="anchor" href="#generate-a-link" aria-hidden="true"></a>Generate a link</span>
+                        Call to the service method :<br />
+                        <code>$this->container->get('Link4mailing_urlhelper')->generateLink(...)</code></p>
+                    <p>
+                        Method's arguments :<br />
+                        <code>$routeNameOrUri</code> : Set the route name ou the url (mandatory)<br />
+                        <code>$routeParams</code> : Set the array of params for the route name (optional)<br />
+                        <code>$isExternalLink</code> : Set true value to set an external link (optional)<br />
+                        <code>$userId</code> : Set an user id to make an auto-login link (optional)<br />
+                        <code>$duration</code> : Put an integer value to set how may hours the link is valid (optional)
+                    </p>
+                </section>
+                <div class="clear"></div>
+            </div>
+        </div>
         <footer>
-          Link4mailing-bundle is maintained by <a href="https://github.com/zaeder">zaeder</a>
+            <div class="container">
+                <p>Link4mailing-bundle is maintained by zaeder</p>
+            </div>
         </footer>
-
-        
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
