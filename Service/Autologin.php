@@ -2,42 +2,71 @@
 
 namespace Zaeder\Link4mailingBundle\Service;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use Zaeder\Link4mailingBundle\Interfaces\AutologinInterface;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
+use FOS\UserBundle\Security\LoginManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
 
-class Autologin {
+class Autologin implements AutologinInterface {
     
     /**
-     * Container
-     * @var Symfony\Component\DependencyInjection\ContainerInterface 
-     */
-    private $container;
-    /**
      * Entity Manager
-     * @var Doctrine\ORM\EntityManager
+     * @var Doctrine\ORM\EntityManagerInterface
      */
     private $em;
+    /**
+     * Security Context
+     * @var Symfony\Component\Security\Core\SecurityContextInterface
+     */
+    private $securityContext;
+    /**
+     * Login Manager
+     * @var FOS\UserBundle\Security\LoginManagerInterface
+     */
+    private $loginManager;
+    /**
+     * User entity classname
+     * @var string
+     */
+    private $userEntityClassName;
+    /**
+     * Firewall name
+     * @var string
+     */
+    private $firewallName;
     
     /**
      * Init vars
-     * @param ContainerInterface $container
-     * @param EntityManager $entity_manager
+     * @param EntityManagerInterface $em
+     * @param SecurityContextInterface $securityContext
+     * @param LoginManagerInterface $loginManager
+     * @param string $userEntityClassName
+     * @param string $firewallName
      */
-    function __construct(ContainerInterface $container, EntityManager $entity_manager)
+    public function __construct(EntityManagerInterface $em, SecurityContextInterface $securityContext, LoginManagerInterface $loginManager, $userEntityClassName, $firewallName)
     {
-        $this->container = $container;
-        $this->em = $entity_manager;
+        $this->em = $em;
+        $this->securityContext = $securityContext;
+        $this->loginManager = $loginManager;
+        $this->userEntityClassName = $userEntityClassName;
+        $this->firewallName = $firewallName;
     }
     
+    /**
+     * Autolog and redirect
+     * @param string $url
+     * @param int $userId
+     */
     public function autologin($url, $userId)
     {
-    	$user = $this->container->get('security.context')->getToken()->getUser();
+    	$user = $this->securityContext->getToken()->getUser();
         
         if($user == "anon."){
             $response = new RedirectResponse($url);
     	}
     	else {
-            $reUser = $this->em->getRepository($this->container->getParameter('zaederlink4mailingbundle.user_class'));
+            $reUser = $this->em->getRepository($this->userEntityClassName);
             $user = $reUser->find($userId);
 
             $response = new RedirectResponse($url);
@@ -47,15 +76,14 @@ class Autologin {
     	}
     }
     
-    protected function authenticateUser($user, Response $response)
+    private function authenticateUser($user, Response $response)
     {
-        $userClass = $this->container->getParameter('zaederlink4mailingbundle.user_class');
-        if(!($user instanceof $userClass)){
+        if(!($user instanceof $this->userEntityClassName)){
             throw new \Exception('User invalid');
         }
     	try {
-            $this->container->get('fos_user.security.login_manager')->loginUser(
-                $this->container->getParameter('fos_user.firewall_name'),
+            $this->loginManager->loginUser(
+                $this->firewallName,
                 $user,
                 $response
             );

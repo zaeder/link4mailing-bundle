@@ -109,7 +109,7 @@ class Link4mailing
      */
     public function setRouteParams($routeParams)
     {
-        $this->routeParams = $routeParams;
+        $this->routeParams = json_encode($routeParams);
 
         return $this;
     }
@@ -121,7 +121,17 @@ class Link4mailing
      */
     public function getRouteParams()
     {
-        return $this->routeParams;
+        $routeParams = (array)json_decode($this->routeParams);
+        if(count($routeParams) === 1 && array_key_exists(0, $routeParams)){
+            if(is_int($routeParams[0])){
+                $routeParams = intval($routeParams[0]);
+            } else if(is_float($routeParams[0])){
+                $routeParams = floatval($routeParams[0]);
+            } else {
+                $routeParams = $routeParams[0];
+            }
+        }
+        return $routeParams;
     }
 
     /**
@@ -194,6 +204,30 @@ class Link4mailing
     public function getExpirationDate()
     {
         return $this->expirationDate;
+    }
+
+    /**
+     * Set isExternalLink
+     *
+     * @param boolean $isExternalLink
+     *
+     * @return Link4mailing
+     */
+    public function setIsExternalLink($isExternalLink)
+    {
+        $this->isExternalLink = $isExternalLink;
+
+        return $this;
+    }
+
+    /**
+     * Get isExternalLink
+     *
+     * @return boolean
+     */
+    public function getIsExternalLink()
+    {
+        return $this->isExternalLink;
     }
 
     /**

@@ -1,13 +1,8 @@
 services:
     Link4mailing_urlhelper:
         class: Zaeder\Link4mailingBundle\Service\UrlHelper
-        arguments:
-            container: "@service_container"
-            entity_manager: "@doctrine.orm.entity_manager"
-            autologin: "@Link4mailing_autologin"
+        arguments: ["@doctrine.orm.entity_manager", "@Link4mailing_autologin", "@router", "%zaederlink4mailingbundle.user_class%"]
             
     Link4mailing_autologin:
         class: Zaeder\Link4mailingBundle\Service\Autologin
-        arguments:
-            container: "@service_container"
-            entity_manager: "@doctrine.orm.entity_manager"
+        arguments: ["@doctrine.orm.entity_manager", "@security.context", "@fos_user.security.login_manager", "%zaederlink4mailingbundle.user_class%", "%fos_user.firewall_name%"]
